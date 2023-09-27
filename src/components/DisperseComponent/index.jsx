@@ -94,14 +94,17 @@ const Disperse = ({ onSubmit }) => {
 
     const address = match[0];
     const amount = match[1];
-    if (!address.startsWith("0x") && !Number.isInteger(Number(amount))) {
+    if (
+      address.length !== 42 ||
+      (!address.startsWith("0x") && !Number.isInteger(Number(amount)))
+    ) {
       setError((prev) => [
         ...prev,
         `Line ${i + 1} invalid Ethereum address and wrong amount.`,
       ]);
       return false;
     }
-    if (!address.startsWith("0x")) {
+    if (address.length !== 42 || !address.startsWith("0x")) {
       setError((prev) => [...prev, `Line ${i + 1} invalid Ethereum address.`]);
       return false;
     }
